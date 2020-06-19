@@ -11,7 +11,7 @@ from mitsuba.core.xml import load_string
 from mitsuba.python.util import traverse
 from tests_utils import test_finite_difference
 
-test_name = "test_gradients_indirect_visibility"
+test_name = "test_gradients_indirect_illumination"
 
 def make_scene(integrator, spp, res, sdf_vol):
     return load_string(f"""
@@ -21,7 +21,7 @@ def make_scene(integrator, spp, res, sdf_vol):
             {integrator}
 
             <sensor type="perspective">
-                <float name="fov" value="20"/>
+                <float name="fov" value="8"/>
                 <float name="near_clip" value="1"/>
                 <float name="far_clip" value="1000"/>
 
@@ -69,7 +69,7 @@ def make_scene(integrator, spp, res, sdf_vol):
             <shape type="obj">
                 <string name="filename" value="data/meshes/ground.obj"/>
                 <bsdf type="diffuse">
-                    <rgb name="reflectance" value="0.2, 0.2, 0.2"/>
+                    <rgb name="reflectance" value="0.9, 0.9, 0.9"/>
                 </bsdf>
                 <!--<bsdf type="roughconductor">
                     <float name="alpha" value="0.1"/>
@@ -84,13 +84,13 @@ def make_scene_(integrator, spp):
     return make_scene(integrator, spp, image_res, "cube.vol")
 
 fd_spp = 100
-fd_passes = 10
+fd_passes = 30
 fd_integrator = """<integrator type="path">
                        <integer name="max_depth" value="3"/>
                    </integrator>"""
 
 diff_spp = 4
-diff_passes = 10
+diff_passes = 30
 diff_integrator = """<integrator type="sdfpath">
                          <integer name="max_depth" value="3"/>
                      </integrator>"""
