@@ -1,0 +1,5 @@
+.env
+data/sdf/*
+output/*
+__pycache__/*
+_TODOs.md
